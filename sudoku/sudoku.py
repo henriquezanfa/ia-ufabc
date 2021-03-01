@@ -1,14 +1,15 @@
+from utils import string_pra_array
+
+
 class Sudoku:
 
     def __init__(self, initial_state):
         self.initial_state = initial_state
 
     def expand_nodes(self, current_state):
+        print(current_state)
         expanded_nodes = []
-        # for i in range(9):
-        #     for j in range(9):
         expanded_nodes = self.actions(current_state)
-
         return expanded_nodes
 
     def check_ocurrencies(self, state):
@@ -22,7 +23,7 @@ class Sudoku:
         """
         Não pode haver o mesmo número duas vezes em uma coluna
         Não pode haver o mesmo número duas vezes em uma linha - OK
-        Não pode haver o mesmo número duas vezes em um mesmo quadrante 
+        Não pode haver o mesmo número duas vezes em um mesmo quadrante
         """
 
         # Valida se tem repetição numa linha
@@ -72,22 +73,25 @@ class Sudoku:
 
         return True
 
+    def atingiu_obj(self, estado):
+        return estado and "." not in estado and self.e_possivel(string_pra_array(estado, 9))
+
     def actions(self, current_state):
         """
-        Dado o estado atual, retorna as possíveis ações que não 
-        tornam o problema impossível a partir desse estado e 
+        Dado o estado atual, retorna as possíveis ações que não
+        tornam o problema impossível a partir desse estado e
         retorna a lista dos estados que cada uma dessas ações gera
         """
-        new_states = []
-        for l in range(1, 10):
-            if current_state == ".":
-                current_state == str(l)
-                if(self.e_possivelurrent_state):
-                    new_states.append(str(l))
-                else:
-                    current_state = "."
+        novosEstados = []
+        # print("ações-----------------")
+        for estado in current_state:
+            # current_state.remove(estado)
+            for i in range(81):
+                if estado[i] == ".":
+                    for j in range(1, 10):
+                        aux = estado[:i] + \
+                            str(j) + estado[i + 1:]
+                        if self.e_possivel(string_pra_array(aux, 9)):
+                            novosEstados.append(aux)
 
-        print(current_state)
-        # print(new_states)
-
-        return new_states
+        return novosEstados
