@@ -7,7 +7,7 @@ class Sudoku:
         self.initial_state = initial_state
 
     def expand_nodes(self, current_state):
-        print(current_state)
+        # print(current_state)
         expanded_nodes = []
         expanded_nodes = self.actions(current_state)
         return expanded_nodes
@@ -84,14 +84,15 @@ class Sudoku:
         """
         novosEstados = []
         # print("ações-----------------")
-        for estado in current_state:
-            # current_state.remove(estado)
-            for i in range(81):
-                if estado[i] == ".":
-                    for j in range(1, 10):
-                        aux = estado[:i] + \
-                            str(j) + estado[i + 1:]
-                        if self.e_possivel(string_pra_array(aux, 9)):
-                            novosEstados.append(aux)
+        estado = current_state
+        # current_state.remove(estado)
+        for i in range(81):
+            if estado[i] == ".":
+                for j in range(1, 10):
+                    aux = estado[:i] + \
+                        str(j) + estado[i + 1:]
+                    if self.e_possivel(string_pra_array(aux, 9)):
+                        novosEstados.append(aux)
+                break
 
         return novosEstados

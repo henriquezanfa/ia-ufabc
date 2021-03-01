@@ -7,7 +7,9 @@ import utils
 
 
 def busca_largura(entrada, sudoku):
-    estados = sudoku.expand_nodes(entrada)
+    estados = []
+    for jogo in entrada:
+        estados += sudoku.expand_nodes(jogo)
 
     for e in estados:
         if sudoku.atingiu_obj(e):
@@ -34,7 +36,7 @@ def main():
     for resposta in respostas:
         saida += resposta + "\n"
 
-    # print(saida)
+    print(saida)
 
     end = time.time()
 
